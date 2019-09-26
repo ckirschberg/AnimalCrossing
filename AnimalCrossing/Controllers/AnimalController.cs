@@ -39,7 +39,11 @@ namespace AnimalCrossing.Controllers
         [HttpPost]
         public IActionResult Create(Cat c)
         {
-            return View("Thanks");
+            ViewBag.Thanks = c.Name + " " + c.Description;
+
+            ViewBag.Cat = c;
+
+            return View("Thanks", c);
         }
 
 
