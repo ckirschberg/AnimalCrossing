@@ -9,6 +9,7 @@
 
 
 @using (Html.BeginForm()) {
+    @Html.ValidationSummary()
 
     <div>
         @Html.LabelFor(x => x.Name)

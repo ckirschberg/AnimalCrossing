@@ -39,8 +39,10 @@ namespace AnimalCrossing.Controllers
         [HttpPost]
         public IActionResult Create(Cat c)
         {
-            if (ModelState.IsValid) { 
-            
+            if (ModelState.IsValid) {
+                ViewBag.Thanks = c.Name;
+                ViewBag.Cat = c;
+
                 return View("Thanks", c);
             }
             return View(c);
