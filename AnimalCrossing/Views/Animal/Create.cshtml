@@ -13,6 +13,7 @@
     <div>
         @Html.LabelFor(x => x.Name)
         @Html.TextBoxFor(x => x.Name, new { @class= "form-control" })
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div>
