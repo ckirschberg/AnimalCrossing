@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AnimalCrossing.Data;
 using AnimalCrossing.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +12,18 @@ namespace AnimalCrossing.Controllers
 {
     public class AnimalController : Controller
     {
+        private readonly AnimalCrossingContext _context;
+
+        public AnimalController(AnimalCrossingContext context)
+        {
+            _context = context;
+        }
+
+
         // GET: /<controller>/
         public IActionResult Index()
         {
+            var cats = _context.Cats.ToList();
             return View();
         }
 
@@ -42,6 +52,9 @@ namespace AnimalCrossing.Controllers
             if (ModelState.IsValid) {
                 ViewBag.Thanks = c.Name;
                 ViewBag.Cat = c;
+
+                _context.Cats.Add(c);
+                _context.SaveChanges();
 
                 return View("Thanks", c);
             }

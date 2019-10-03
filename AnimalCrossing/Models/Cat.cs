@@ -30,10 +30,14 @@ namespace AnimalCrossing.Models
 
         public Gender? Gender { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name="Birth Date")]
         public DateTime? BirthDate { get; set; }
 
         public string ProfilePicture { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 10)]
         public string Description { get; set; }
 
         // Ratings..Comments, Reviews
