@@ -23,8 +23,9 @@ namespace AnimalCrossing.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var cats = _context.Cats.ToList();
-            return View();
+            List<Cat> cats = _context.Cats.ToList();
+
+            return View("ShowCats", cats);
         }
 
 
@@ -62,6 +63,30 @@ namespace AnimalCrossing.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            // Create an edit view
+            // Look up cat object from catId in the database
+            // Show an edit view to the user, displaying the cat object
+            Cat cat = _context.Cats.Find(id);
+
+
+            return View(cat);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Cat c)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Cats.Update(c);
+                _context.SaveChanges();
+                // Save it to the database
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
 
 
     }
