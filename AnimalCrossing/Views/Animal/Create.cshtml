@@ -9,29 +9,5 @@
 
 
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary()
-
-    <div>
-        @Html.LabelFor(x => x.Name)
-        @Html.TextBoxFor(x => x.Name, new { @class= "form-control" })
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-
-    <div>
-        @Html.LabelFor(x=> x.Description)
-        @Html.TextBoxFor(x => x.Description, new { @class= "form-control" })
-    </div>
-
-    <div>
-        @Html.LabelFor(x=>x.Gender)
-
-        @Html.DropDownListFor(x=>x.Gender, Html.GetEnumSelectList<Gender>(),"Select your cats Gender")
-    </div>
-
-    <div>
-        @Html.LabelFor(x =>x.ProfilePicture)
-        @Html.TextBoxFor(x=>x.ProfilePicture)
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save Cat</button>
+    @await Html.PartialAsync("_CatForm")
 }
