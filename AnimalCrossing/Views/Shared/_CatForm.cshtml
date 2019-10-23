@@ -13,6 +13,12 @@
     </div>
 
     <div>
+        @Html.LabelFor(x => x.SpeciesId)
+        @Html.TextBoxFor(x => x.SpeciesId, new { @class = "form-control" })
+    </div>
+
+
+    <div>
         @Html.LabelFor(x => x.Gender)
 
         @Html.DropDownListFor(x => x.Gender, Html.GetEnumSelectList<Gender>(), "Select your cats Gender")

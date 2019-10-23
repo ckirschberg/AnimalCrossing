@@ -42,7 +42,11 @@ namespace AnimalCrossing.Models
 
         // Ratings..Comments, Reviews
         // 
-        
+
+
+        public int SpeciesId { get; set; }
+        public Species Species { get; set; }
+
         public Cat()
         {
         }

@@ -40,9 +40,41 @@ namespace AnimalCrossing.Migrations
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("SpeciesId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("CatId");
 
+                    b.HasIndex("SpeciesId");
+
                     b.ToTable("Cats");
+                });
+
+            modelBuilder.Entity("AnimalCrossing.Models.Species", b =>
+                {
+                    b.Property<int>("SpeciesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SpeciesId");
+
+                    b.ToTable("Species");
+                });
+
+            modelBuilder.Entity("AnimalCrossing.Models.Cat", b =>
+                {
+                    b.HasOne("AnimalCrossing.Models.Species", "Species")
+                        .WithMany("Cats")
+                        .HasForeignKey("SpeciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
