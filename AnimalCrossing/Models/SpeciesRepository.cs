@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AnimalCrossing.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,31 +8,39 @@ namespace AnimalCrossing.Models
 {
     public class SpeciesRepository : ISpeciesRepository
     {
-        AnimalCrossingContext context =
-            new AnimalCrossingContext(new DbContextOptions<AnimalCrossingContext>());
-
-        public SpeciesRepository()
+        private readonly AnimalCrossingContext _context;
+        public SpeciesRepository(AnimalCrossingContext context)
         {
+            this._context = context;
         }
+
 
         public void Delete(int speciesId)
         {
-            throw new NotImplementedException();
+            _context.Species.Remove(this.Get(speciesId));
         }
 
         public List<Species> Get()
         {
-            throw new NotImplementedException();
+            return _context.Species.ToList();
         }
 
         public Species Get(int speciesId)
         {
-            throw new NotImplementedException();
+            return _context.Species.Find(speciesId);
         }
 
         public void Save(Species s)
         {
-            throw new NotImplementedException();
+            if (s.SpeciesId == 0)
+            {
+                _context.Species.Add(s);
+            } else
+            {
+                _context.Species.Update(s);
+            }
+
+            _context.SaveChanges();
         }
     }
 }

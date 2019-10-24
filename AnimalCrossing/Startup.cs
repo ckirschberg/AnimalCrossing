@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AnimalCrossing.Data;
+using AnimalCrossing.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,9 @@ namespace AnimalCrossing
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // DI (Dependency Injection) - repository
+            services.AddTransient<ISpeciesRepository, SpeciesRepository>();
 
             services.AddDbContext<AnimalCrossingContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("AnimalCrossingContext")));

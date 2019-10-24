@@ -13,28 +13,29 @@ namespace AnimalCrossing.Controllers
     public class SpeciesController : Controller
     {
         private readonly AnimalCrossingContext _context;
+        private readonly ISpeciesRepository repo;
 
-        public SpeciesController(AnimalCrossingContext context)
+        public SpeciesController(AnimalCrossingContext context, ISpeciesRepository repo)
         {
             _context = context;
+            this.repo = repo;
         }
 
         // GET: Species
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Species.ToListAsync());
+            return View(repo.Get());
         }
 
         // GET: Species/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var species = await _context.Species
-                .FirstOrDefaultAsync(m => m.SpeciesId == id);
+            var species = repo.Get((int)id);
             if (species == null)
             {
                 return NotFound();
@@ -54,26 +55,26 @@ namespace AnimalCrossing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SpeciesId,Name,Description")] Species species)
+        public IActionResult Create([Bind("SpeciesId,Name,Description")] Species species)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(species);
-                await _context.SaveChangesAsync();
+                repo.Save(species);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(species);
         }
 
         // GET: Species/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var species = await _context.Species.FindAsync(id);
+            var species = repo.Get((int)id);
             if (species == null)
             {
                 return NotFound();
@@ -86,7 +87,7 @@ namespace AnimalCrossing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SpeciesId,Name,Description")] Species species)
+        public IActionResult Edit(int id, [Bind("SpeciesId,Name,Description")] Species species)
         {
             if (id != species.SpeciesId)
             {
@@ -97,8 +98,7 @@ namespace AnimalCrossing.Controllers
             {
                 try
                 {
-                    _context.Update(species);
-                    await _context.SaveChangesAsync();
+                    repo.Save(species);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,15 +117,14 @@ namespace AnimalCrossing.Controllers
         }
 
         // GET: Species/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var species = await _context.Species
-                .FirstOrDefaultAsync(m => m.SpeciesId == id);
+            var species = repo.Get((int)id);
             if (species == null)
             {
                 return NotFound();
@@ -137,11 +136,10 @@ namespace AnimalCrossing.Controllers
         // POST: Species/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var species = await _context.Species.FindAsync(id);
-            _context.Species.Remove(species);
-            await _context.SaveChangesAsync();
+            repo.Delete(id);
+
             return RedirectToAction(nameof(Index));
         }
 
