@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using AnimalCrossing.DependencyInjection;
 
 namespace AnimalCrossing
 {
@@ -33,7 +34,27 @@ namespace AnimalCrossing
                 }
             }
 
+            FlyWithWings fly = new FlyWithWings();
+            FlyNoWay noFly = new FlyNoWay();
+
+            MallardDuck md = new MallardDuck(fly);
+            RedheadDuck red = new RedheadDuck(fly);
+            RubberDuck rubberDuck = new RubberDuck(noFly);
+
+            md.Display();
+            md.Fly();
+
+            red.Display();
+            red.Fly();
+
+            rubberDuck.Display();
+            rubberDuck.Fly();
+
+
+
             host.Run();
+
+            
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
