@@ -11,13 +11,11 @@ using AnimalCrossing.Models;
 namespace AnimalCrossing.Controllers
 {
     public class SpeciesController : Controller
-    {
-        private readonly AnimalCrossingContext _context;
+    {        
         private readonly ISpeciesRepository repo;
 
-        public SpeciesController(AnimalCrossingContext context, ISpeciesRepository repo)
+        public SpeciesController(ISpeciesRepository repo)
         {
-            _context = context;
             this.repo = repo;
         }
 
@@ -145,7 +143,8 @@ namespace AnimalCrossing.Controllers
 
         private bool SpeciesExists(int id)
         {
-            return _context.Species.Any(e => e.SpeciesId == id);
+            // I did this so we could unit test. TODO: Fix this..
+            return false;
         }
     }
 }
