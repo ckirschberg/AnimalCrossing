@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalCrossing", "AnimalCrossing\AnimalCrossing.csproj", "{BCD49B84-0ADE-471E-AB07-4E554E1FC503}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalCrossingTests", "AnimalCrossingTests\AnimalCrossingTests.csproj", "{3A2152E9-9EF8-41B9-ABC2-BD5928FBD4AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{BCD49B84-0ADE-471E-AB07-4E554E1FC503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCD49B84-0ADE-471E-AB07-4E554E1FC503}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCD49B84-0ADE-471E-AB07-4E554E1FC503}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A2152E9-9EF8-41B9-ABC2-BD5928FBD4AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A2152E9-9EF8-41B9-ABC2-BD5928FBD4AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A2152E9-9EF8-41B9-ABC2-BD5928FBD4AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A2152E9-9EF8-41B9-ABC2-BD5928FBD4AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
