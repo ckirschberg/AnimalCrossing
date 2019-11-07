@@ -23,15 +23,7 @@ namespace AnimalCrossing.Controllers
         // GET: /<controller>/
         public IActionResult Index(string searchString)
         {
-            var cats = from m in animalRepository.Get()
-                       //where m.Name.Contains(searchString)
-                       select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                cats = cats.Where(cat => cat.Name.Contains(searchString));
-            }
-
+            List<Cat> cats = this.animalRepository.Find(searchString);
             return View("ShowCats", cats.ToList());
         }
 

@@ -30,6 +30,7 @@ namespace AnimalCrossing
 
             // DI (Dependency Injection) - repository
             services.AddTransient<ISpeciesRepository, SpeciesRepository>();
+            services.AddTransient<IAnimalRepository, AnimalRepository>();
 
             services.AddDbContext<AnimalCrossingContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("AnimalCrossingContext")));
