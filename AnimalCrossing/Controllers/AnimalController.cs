@@ -12,18 +12,18 @@ namespace AnimalCrossing.Controllers
 {
     public class AnimalController : Controller
     {
-        private readonly AnimalCrossingContext _context;
+        private IAnimalRepository animalRepository;
 
-        public AnimalController(AnimalCrossingContext context)
+        public AnimalController(IAnimalRepository animalRepo)
         {
-            _context = context;
+            this.animalRepository = animalRepo;
         }
 
 
         // GET: /<controller>/
         public IActionResult Index(string searchString)
         {
-            var cats = from m in _context.Cats
+            var cats = from m in animalRepository.Get()
                        //where m.Name.Contains(searchString)
                        select m;
 
@@ -61,9 +61,8 @@ namespace AnimalCrossing.Controllers
                 ViewBag.Thanks = c.Name;
                 ViewBag.Cat = c;
 
-                _context.Cats.Add(c);
-                _context.SaveChanges();
-
+                animalRepository.Save(c);
+                
                 return View("Thanks", c);
             }
             return View(c);
@@ -76,7 +75,7 @@ namespace AnimalCrossing.Controllers
             // Create an edit view
             // Look up cat object from catId in the database
             // Show an edit view to the user, displaying the cat object
-            Cat cat = _context.Cats.Find(id);
+            Cat cat = animalRepository.Get(id);
 
 
             return View(cat);
@@ -87,8 +86,7 @@ namespace AnimalCrossing.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Cats.Update(c);
-                _context.SaveChanges();
+                animalRepository.Save(c);
                 // Save it to the database
                 return RedirectToAction("Index");
             }
