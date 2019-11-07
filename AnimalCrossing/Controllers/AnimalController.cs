@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AnimalCrossing.Data;
 using AnimalCrossing.Models;
+using AnimalCrossing.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,9 +15,11 @@ namespace AnimalCrossing.Controllers
     public class AnimalController : Controller
     {
         private IAnimalRepository animalRepository;
+        private ISpeciesRepository speciesRepository;
 
-        public AnimalController(IAnimalRepository animalRepo)
+        public AnimalController(IAnimalRepository animalRepo, ISpeciesRepository s)
         {
+            this.speciesRepository = s;
             this.animalRepository = animalRepo;
         }
 
@@ -43,21 +47,35 @@ namespace AnimalCrossing.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            AnimalCatVM vm = new AnimalCatVM()
+            {
+                Cat = new Cat(),
+                SpeciesSelectList = new SelectList(speciesRepository.Get(), "SpeciesId", "Name")
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Create(Cat c)
+        public IActionResult Create(AnimalCatVM vm)
         {
             if (ModelState.IsValid) {
-                ViewBag.Thanks = c.Name;
-                ViewBag.Cat = c;
+                ViewBag.Thanks = vm.Cat.Name;
+                ViewBag.Cat = vm.Cat;
 
-                animalRepository.Save(c);
+                animalRepository.Save(vm.Cat);
                 
-                return View("Thanks", c);
+                return View("Thanks", vm.Cat);
             }
-            return View(c);
+
+
+            AnimalCatVM vm2 = new AnimalCatVM()
+            {
+                Cat = new Cat(),
+                SpeciesSelectList = new SelectList(speciesRepository.Get(), "SpeciesId", "Name")
+            };
+
+            return View(vm2);
 
         }
 

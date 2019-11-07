@@ -11,6 +11,7 @@
   <ItemGroup>
     <Folder Include="Views\Animal\" />
     <Folder Include="Dependency Injection\" />
+    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
