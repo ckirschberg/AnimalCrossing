@@ -6,6 +6,13 @@
 @{
 }
 
+<form asp-controller="Animal" asp-action="Index">
+    <p>
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <div class="container">
     <div class="row">
     @foreach(var item in Model)

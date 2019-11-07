@@ -21,11 +21,18 @@ namespace AnimalCrossing.Controllers
 
 
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            List<Cat> cats = _context.Cats.ToList();
+            var cats = from m in _context.Cats
+                       //where m.Name.Contains(searchString)
+                       select m;
 
-            return View("ShowCats", cats);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                cats = cats.Where(cat => cat.Name.Contains(searchString));
+            }
+
+            return View("ShowCats", cats.ToList());
         }
 
 
