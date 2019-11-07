@@ -51,7 +51,7 @@ namespace AnimalCrossingTests
             var mockRepo = new Mock<ISpeciesRepository>();
             var controller = new SpeciesController(mockRepo.Object);
 
-            //controller.ModelState.AddModelError("Name", "Required");
+            controller.ModelState.AddModelError("Name", "Required");
             var species = new Species() { Name = "", Description = "Karl Karlson something nice" };
 
             // Act
@@ -63,5 +63,29 @@ namespace AnimalCrossingTests
             Assert.IsType<Species>(model);
         }
 
+        [Fact]
+        public void CreatePost_SaveThroughRepository_WhenModelStateIsValid()
+        {
+            // Arrange
+            var mockRepo = new Mock<ISpeciesRepository>();
+            mockRepo.Setup(repo => repo.Save(It.IsAny<Species>()))
+                //.Returns(Task.CompletedTask)
+                .Verifiable();
+            var controller = new SpeciesController(mockRepo.Object);
+            Species s = new Species()
+            {
+                Name = "Human",
+                Description = "Don't listen to scientists"
+            };
+
+            // Act
+            var result = controller.Create(s);
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Null(redirectToActionResult.ControllerName);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+            mockRepo.Verify();
+        }
     }
 }
