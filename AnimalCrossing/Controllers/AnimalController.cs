@@ -47,13 +47,7 @@ namespace AnimalCrossing.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            AnimalCatVM vm = new AnimalCatVM()
-            {
-                Cat = new Cat(),
-                SpeciesSelectList = new SelectList(speciesRepository.Get(), "SpeciesId", "Name")
-            };
-
-            return View(vm);
+            return View(ViewModelCreator.CreateAnimalCatVm(speciesRepository));
         }
 
         [HttpPost]
@@ -68,14 +62,7 @@ namespace AnimalCrossing.Controllers
                 return View("Thanks", vm.Cat);
             }
 
-
-            AnimalCatVM vm2 = new AnimalCatVM()
-            {
-                Cat = new Cat(),
-                SpeciesSelectList = new SelectList(speciesRepository.Get(), "SpeciesId", "Name")
-            };
-
-            return View(vm2);
+            return View(ViewModelCreator.CreateAnimalCatVm(speciesRepository));
 
         }
 
