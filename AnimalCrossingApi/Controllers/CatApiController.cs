@@ -29,27 +29,8 @@ namespace AnimalCrossingApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatVM>>> GetCat()
         {
-            // Temporary solution
-            var config = new MapperConfiguration(cfg => {
-                cfg.AddProfile<AutoMapping>();
-                cfg.CreateMap<AnimalCrossing.Models.Cat, CatVM>();
-                cfg.CreateMap<List<AnimalCrossing.Models.Cat>, List<CatVM>>();
-            });
-            var mapper = config.CreateMapper();
-            // Temporary solution
-
-
-
             var cats = await _context.Cats.ToListAsync();
-            //return mapper.Map<List<CatVM>>(cats);
-
-            var catVmList = new List<CatVM>();
-            foreach (AnimalCrossing.Models.Cat cat in cats)
-            {
-                catVmList.Add(mapper.Map<CatVM>(cat));
-            }
-
-            return catVmList;
+            return _mapper.Map<List<AnimalCrossing.Models.Cat>, List<CatVM>>(cats);
         }
 
         // GET: api/CatApi/5

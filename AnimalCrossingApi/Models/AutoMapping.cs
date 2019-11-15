@@ -8,7 +8,7 @@ namespace AnimalCrossingApi.Models
     {
         public AutoMapping()
         {
-            CreateMap<Cat, CatVM>();    
+            CreateMap<AnimalCrossing.Models.Cat, CatVM>();
         }
     }
 }

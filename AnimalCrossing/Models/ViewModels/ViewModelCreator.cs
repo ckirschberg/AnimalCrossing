@@ -5,7 +5,7 @@ namespace AnimalCrossing.Models.ViewModels
 {
     public class ViewModelCreator
     {
-
+        
         public static AnimalCatVM CreateAnimalCatVm(ISpeciesRepository speciesRepository)
         {
             return new AnimalCatVM()

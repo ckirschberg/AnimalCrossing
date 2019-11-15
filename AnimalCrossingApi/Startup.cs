@@ -32,9 +32,10 @@ namespace AnimalCrossingApi
             services.AddDbContext<AnimalApiContext>(opt =>
                opt.UseInMemoryDatabase("TodoList"));
 
+
             // Add automapper
             services.AddAutoMapper(typeof(Startup));
-            
+
             services.AddControllers();
         }
 
