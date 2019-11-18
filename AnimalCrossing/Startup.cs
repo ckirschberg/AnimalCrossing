@@ -7,6 +7,7 @@ using AnimalCrossing.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,28 @@ namespace AnimalCrossing
 
             services.AddDbContext<AnimalCrossingContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("AnimalCrossingContext")));
+
+
+            //services.AddRazorPages();
+            //services.AddMvc().AddRazorPagesOptions(options =>
+            //{
+                //options.Conventions.AddAreaPageRoute(areaName: "Identity",
+                //    pageName: "/Account/Login",
+                //    route: "Identity/Account/Login");
+                //options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                //options.Conventions.AuthorizeAreaPage("Admin", "/Index");
+                //options.Conventions.AuthorizeAreaFolder("Admin", "/Users");
+            //});
+
+           
+
+
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.LoginPath = $"/Identity/Account/Login";
+            //    options.LogoutPath = $"/Identity/Account/Logout";
+            //    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +84,7 @@ namespace AnimalCrossing
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AnimalCrossing.Data;
 using AnimalCrossing.Models;
 using AnimalCrossing.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AnimalCrossing.Controllers
 {
+    [Authorize]
     public class AnimalController : Controller
     {
         private IAnimalRepository animalRepository;
