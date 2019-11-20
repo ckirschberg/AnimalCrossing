@@ -23,6 +23,9 @@ namespace AnimalCrossing.Areas.Identity
                     options.SignIn.RequireConfirmedAccount = false;
                     options.SignIn.RequireConfirmedEmail = false;
                     options.SignIn.RequireConfirmedPhoneNumber = false;
+
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireUppercase = false;
                 })
                     .AddEntityFrameworkStores<AnimalCrossingIdentityDbContext>();
 
