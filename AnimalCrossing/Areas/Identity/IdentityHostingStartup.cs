@@ -19,15 +19,16 @@ namespace AnimalCrossing.Areas.Identity
                     options.UseSqlite(
                         context.Configuration.GetConnectionString("AnimalCrossingIdentityDbContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => {
-                    options.SignIn.RequireConfirmedAccount = false;
-                    options.SignIn.RequireConfirmedEmail = false;
-                    options.SignIn.RequireConfirmedPhoneNumber = false;
+                services.AddDefaultIdentity<IdentityUser>(x => {
+                    x.SignIn.RequireConfirmedAccount = false;
+                    x.SignIn.RequireConfirmedEmail = false;
+                    x.SignIn.RequireConfirmedPhoneNumber = false;
 
-                    options.Password.RequiredLength = 8;
-                    options.Password.RequireUppercase = false;
-                })
-                    .AddEntityFrameworkStores<AnimalCrossingIdentityDbContext>();
+                    x.Password.RequireDigit = false;
+                    x.Password.RequireNonAlphanumeric = false;
+                    x.Password.RequiredLength = 8;
+
+                }).AddEntityFrameworkStores<AnimalCrossingIdentityDbContext>();
 
             });
         }

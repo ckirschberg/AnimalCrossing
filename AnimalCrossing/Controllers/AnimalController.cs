@@ -27,6 +27,7 @@ namespace AnimalCrossing.Controllers
 
 
         // GET: /<controller>/
+        [AllowAnonymous]
         public IActionResult Index(string searchString)
         {
             List<Cat> cats = this.animalRepository.Find(searchString);
@@ -44,7 +45,6 @@ namespace AnimalCrossing.Controllers
             ViewBag.MyWifeSays = "Go buy groceries, clean up, make dinner";
             return View();
         }
-
 
         [HttpGet]
         public IActionResult Create()
