@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
@@ -49,6 +50,8 @@ namespace AnimalCrossing.Models
 
         public int SpeciesId { get; set; }
         public Species Species { get; set; }
+
+        public List<Review> Reviews { get; set; }
 
         public Cat()
         {
